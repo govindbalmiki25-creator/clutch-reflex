@@ -1,0 +1,5 @@
+.DS_Store
+node_modules/
+# keep .idea/ committed as JetBrains evidence, but skip personal files:
+.idea/workspace.xml
+.idea/shelf/

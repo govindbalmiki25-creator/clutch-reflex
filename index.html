@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Clutch Reflex</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="game">
+  <canvas id="stage" aria-label="Game area"></canvas>
+  <div id="corner" aria-hidden="true"></div>
+
+  <!-- Attract / start screen -->
+  <section id="attract" class="screen">
+    <div class="event-name" data-event-name></div>
+    <h1 class="logo">CLUTCH<span>REFLEX</span></h1>
+    <p class="tag">60 seconds · 4 drills · beat today's best</p>
+    <div class="drill-row">
+      <div class="drill-chip"><b>01</b>Flick</div>
+      <div class="drill-chip"><b>02</b>Track</div>
+      <div class="drill-chip"><b>03</b>Reflex</div>
+      <div class="drill-chip"><b>04</b>Precision</div>
+    </div>
+    <button class="play pulse" id="playBtn" type="button">Click to play</button>
+    <div class="mini-board">
+      <h3>Today's top 5</h3>
+      <ol id="attractBoard"></ol>
+    </div>
+  </section>
+
+  <!-- Drill intro card -->
+  <section id="card" class="screen hidden">
+    <div class="card-num" id="cardNum"></div>
+    <h2 class="card-title" id="cardTitle"></h2>
+    <p class="card-desc" id="cardDesc"></p>
+    <div class="card-count" id="cardCount"></div>
+  </section>
+
+  <!-- In-game HUD -->
+  <header id="hud" class="hidden">
+    <div class="pips" id="pips"></div>
+    <div class="hud-name" id="hudName"></div>
+    <div class="hud-stat" id="hudStat"></div>
+    <div class="timer"><i id="timerBar"></i></div>
+  </header>
+
+  <!-- Results + initials -->
+  <section id="results" class="screen hidden">
+    <div class="res-grid">
+      <div class="res-left">
+        <div class="label">Final score</div>
+        <div class="score" id="finalScore">0</div>
+        <canvas id="radar" width="680" height="680" aria-label="Skill radar"></canvas>
+      </div>
+      <div class="res-right">
+        <div class="label">You play like a</div>
+        <div class="role" id="roleName"></div>
+        <p class="role-blurb" id="roleBlurb"></p>
+        <ul class="stats" id="statList"></ul>
+        <div id="entry">
+          <div class="label">Your initials</div>
+          <div class="initials" id="initials"></div>
+          <button class="play" id="lockBtn" type="button">Lock in score</button>
+        </div>
+        <div class="saved hidden" id="savedMsg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Operator panel: Ctrl+Shift+O, or click the top-left corner 5 times -->
+  <div id="operator" class="hidden" role="dialog" aria-label="Operator panel">
+    <div class="op-box">
+      <h3>Operator panel</h3>
+      <label>Event name <input id="opEvent" type="text" maxlength="60"></label>
+      <label class="row"><input id="opSound" type="checkbox"> Sound effects</label>
+      <div class="op-buttons">
+        <button type="button" id="opBoard">Open leaderboard screen</button>
+        <button type="button" id="opFull">Toggle fullscreen</button>
+        <button type="button" id="opCsv">Export scores (CSV)</button>
+        <button type="button" id="opToday" class="danger">Clear today's scores</button>
+        <button type="button" id="opAll" class="danger">Clear all scores</button>
+      </div>
+      <p class="op-hint">Esc during a run returns to the start screen. F toggles fullscreen.</p>
+      <button type="button" id="opClose" class="play small">Close</button>
+    </div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/drills.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

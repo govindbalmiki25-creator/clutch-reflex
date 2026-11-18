@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clutch Reflex Leaderboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="board">
+  <main class="lb">
+    <div class="lb-head">
+      <div>
+        <div class="event-name" data-event-name></div>
+        <h1 class="logo">CLUTCH<span>REFLEX</span></h1>
+      </div>
+      <div class="lb-clock" id="clock"></div>
+    </div>
+    <div class="lb-cols">
+      <section class="lb-card">
+        <h2>Today's top 10</h2>
+        <ol class="lb-list" id="today"></ol>
+        <div class="lb-cta">Think you can beat #1? Step up and play.</div>
+      </section>
+      <section class="lb-card">
+        <h2>All-time best</h2>
+        <ol class="lb-list small" id="alltime"></ol>
+        <div class="lb-last" id="last"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/store.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      var Store = CR.Store;
+      var seenNewest = null;
+
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
+      }
+      function row(e, i, freshId) {
+        return '<li class="' + (e.id === freshId ? 'fresh' : '') + '"><span class="rank">' + (i + 1) + '</span>' +
+          '<span class="who">' + esc(e.name) + '<small>' + esc(e.role || '') + '</small></span>' +
+          '<span class="pts">' + e.score + '</span></li>';
+      }
+
+      function render() {
+        var s = Store.settings();
+        document.querySelectorAll('[data-event-name]').forEach(function (el) { el.textContent = s.eventName; });
+
+        var all = Store.all();
+        var newest = all.length ? all.reduce(function (a, b) { return a.ts > b.ts ? a : b; }) : null;
+        var freshId = newest && newest.id !== seenNewest && Date.now() - newest.ts < 20000 ? newest.id : null;
+        if (newest) seenNewest = newest.id;
+
+        var today = Store.today().slice(0, 10);
+        document.getElementById('today').innerHTML = today.length
+          ? today.map(function (e, i) { return row(e, i, freshId); }).join('')
+          : '<li class="empty">No scores yet today. Be the first!</li>';
+
+        var best = Store.allTime().slice(0, 5);
+        document.getElementById('alltime').innerHTML = best.length
+          ? best.map(function (e, i) { return row(e, i, null); }).join('')
+          : '<li class="empty">—</li>';
+
+        document.getElementById('last').innerHTML = newest
+          ? '<div class="label">Last player</div><div class="who">' + esc(newest.name) + ' · ' + newest.score + '</div>' +
+            '<div class="label" style="margin-top:6px">' + esc(newest.role || '') + '</div>'
+          : '';
+      }
+
+      function tick() {
+        var d = new Date();
+        document.getElementById('clock').textContent = d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) +
+          ' · ' + d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+      }
+
+      Store.subscribe(render);
+      // Polling fallback: covers file:// pages where cross-window events may not fire, and the midnight rollover.
+      var lastSig = '';
+      setInterval(function () {
+        var all = Store.all();
+        var sig = all.length + ':' + (all.length ? all[all.length - 1].id : '') + ':' + Store.dayKey();
+        if (sig !== lastSig) { lastSig = sig; render(); }
+        tick();
+      }, 2000);
+      render();
+      tick();
+    })();
+  </script>
+</body>
+</html>
