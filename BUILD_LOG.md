@@ -60,7 +60,17 @@ Raw notes for the **Best AI-Powered Workflow Story** bonus prize. Keep adding en
 
 **What I learned:** an agent gets you most of the way fast, but reviewing its output, especially by *watching it run*, is what catches the bugs that matter at a real booth.
 
-> TODO: add your own Junie/Air screenshots (prompts + diffs) here. Crop out browser tabs and anything personal first.
+**Junie in JetBrains Air, step by step** (WebStorm screenshots, cropped to the IDE window):
+
+| Round | Prompt | Junie's result |
+|---|---|---|
+| 1. Feature | ![Feature prompt](docs/screenshots/junie-01-feature-prompt.png) | ![Feature result](docs/screenshots/junie-02-feature-result.png) |
+| 1. Review | ![Junie's notes and the 3 changed files](docs/screenshots/junie-03-review-notes.png) | |
+| 2. Bug fixes | ![Fix prompt](docs/screenshots/junie-04-fix-prompt.png) | ![Fix result](docs/screenshots/junie-05-fix-result.png) |
+| 3. Layout | ![Layout prompt](docs/screenshots/junie-06-layout-prompt.png) | ![Layout result](docs/screenshots/junie-07-layout-result.png) |
+| Final | ![Final summary with changed files](docs/screenshots/junie-08-final-summary.png) | |
+
+All three rounds ran on the **Junie Lite** model, signed in through JetBrains AI.
 
 ## Next entries (fill in as you go)
 
