@@ -389,6 +389,7 @@
     S.initials = ['A', 'A', 'A'];
     S.slot = 0;
     S.radarDone = false;
+    S.rivalShown = false;
 
     $('#finalScore').textContent = '0';
     $('#roleName').textContent = role.name;
@@ -399,8 +400,52 @@
     }).join('');
     $('#entry').classList.remove('hidden');
     $('#savedMsg').classList.add('hidden');
+    // Un-hide now (still at opacity 0) so the fade-in can animate when showRivalLine() adds .show.
+    $('#rivalLine').textContent = '';
+    $('#rivalSub').textContent = '';
+    $('#rivalLine').classList.remove('show', 'gold', 'hidden');
+    $('#rivalSub').classList.remove('show', 'hidden');
     renderInitials();
     showOnly('results');
+  }
+
+  function showRivalLine() {
+    var today = Store.today();
+    var score = S.final.score;
+    var rivalEl = $('#rivalLine');
+    var subEl = $('#rivalSub');
+
+    if (today.length === 0) {
+      rivalEl.textContent = 'First score of the day. Set the bar!';
+      subEl.textContent = '';
+    } else {
+      // Find where this score would rank among today's entries
+      var rank = 1;
+      for (var i = 0; i < today.length; i++) {
+        if (today[i].score >= score) rank++;
+      }
+      var total = today.length + 1;
+      subEl.textContent = 'You\'d place #' + rank + ' of ' + total + ' today';
+
+      if (rank === 1) {
+        // Beats today's #1
+        var gap = score - today[0].score;
+        rivalEl.innerHTML = 'NEW #1 TODAY by ' + gap + ' points!';
+        rivalEl.classList.add('gold');
+      } else {
+        // Rival is the entry directly above
+        var rival = today[rank - 2];
+        var gap = rival.score - score;
+        var rivalRank = rank - 1;
+        rivalEl.innerHTML = gap === 0
+          ? 'Tied with ' + escapeHtml(rival.name) + ' for #' + rivalRank + ' today!'
+          : gap + ' points behind ' + escapeHtml(rival.name) + ' (#' + rivalRank + ' today)';
+        rivalEl.classList.toggle('gold', gap === 0 && rivalRank === 1);
+        if (gap === 0) subEl.textContent = 'You\'d share #' + rivalRank + ' of ' + total + ' today';
+      }
+    }
+    rivalEl.classList.add('show');
+    subEl.classList.add('show');
   }
 
   function drawRadar(progress) {
@@ -532,6 +577,7 @@
       var eased = 1 - Math.pow(1 - p, 3);
       $('#finalScore').textContent = Math.round(S.final.score * eased);
       if (p < 1 || !S.radarDone) { drawRadar(eased); S.radarDone = p >= 1; }
+      if (p >= 1 && !S.rivalShown) { S.rivalShown = true; showRivalLine(); }
       if (S.idleT > RESULTS_IDLE) lockIn();
     } else if (S.state === 'saved') {
       if (S.stateT > SAVED_HOLD) setState('attract');

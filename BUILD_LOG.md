@@ -72,6 +72,34 @@ Raw notes for the **Best AI-Powered Workflow Story** bonus prize. Keep adding en
 
 All three rounds ran on the **Junie Lite** model, signed in through JetBrains AI.
 
+## Day 2, continued: Round 4, the "rival" callout (Junie in JetBrains Air)
+
+**Goal:** give every player a concrete target on the results screen, like "270 points behind ZED (#2 today)", to keep the booth line competitive.
+
+**Prompt → result:** a fresh Junie session (Junie Lite) added a `#rivalLine` and a sub-line under the score, styles using the existing design tokens, and a `showRivalLine()` function that ranks the player against today's scores. It shows one of three messages: first score of the day, new #1, or points behind the next person up. That's about 47 lines across 3 files in 1m 13s.
+
+| Junie's summary | Details | Files changed |
+|---|---|---|
+| ![Rival result](docs/screenshots/junie-09-rival-result.png) | ![Rival details](docs/screenshots/junie-10-rival-details.png) | ![Rival files changed](docs/screenshots/junie-11-rival-files-changed.png) |
+
+**Review found 2 bugs.** Junie had noted "No runtime tests were executed; this is a static frontend change validated by code review."
+1. **The feature was invisible.** Both new elements started with the `hidden` class (`display: none !important`), and nothing removed it, so the line could never appear. *Fix:* un-hide them at opacity 0 when the results screen opens, so the fade-in animates.
+2. **Ties read badly.** A tie showed "0 points behind ACE" and "You'd place #2". *Fix:* it now says "Tied with ACE for #1 today!" and "You'd share #1".
+
+**Runtime testing (Claude Code, headless Chrome):**
+- A bot played real runs.
+- The leaderboard was seeded around each score to hit every case.
+- A virtual clock kept reaction times realistic.
+- A name containing HTML (`<b>X`) was confirmed to display as plain text.
+
+| First of the day | New #1 |
+|---|---|
+| ![First score](docs/screenshots/results-rival-a-first.png) | ![New #1](docs/screenshots/results-rival-b-new-number-one.png) |
+| **Behind a rival** | **Tie** |
+| ![Behind ZED](docs/screenshots/results-rival-c-behind.png) | ![Tie](docs/screenshots/results-rival-d-tie.png) |
+
+**Lesson:** "validated by code review" isn't the same as tested. Running the feature in every state caught a bug that reading the diff missed.
+
 ## Next entries (fill in as you go)
 
 - [x] Open the project in **WebStorm**.

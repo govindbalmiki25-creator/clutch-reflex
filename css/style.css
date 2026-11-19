@@ -114,6 +114,11 @@ li.empty { display: block; }
 .res-grid { display: grid; grid-template-columns: auto minmax(300px, 460px); gap: 48px; align-items: center; text-align: left; }
 .label { color: var(--mute); font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; }
 .score { font-family: var(--mono); font-size: clamp(64px, 9vw, 112px); font-weight: 900; color: var(--gold); line-height: 1; margin: 6px 0 10px; }
+.rival { font-size: clamp(16px, 2vw, 22px); font-weight: 800; color: var(--text); margin: 0 0 2px; opacity: 0; transition: opacity 0.6s ease; }
+.rival.show { opacity: 1; }
+.rival.gold { color: var(--gold); }
+.rival-sub { font-size: 14px; color: var(--mute); margin: 0 0 10px; opacity: 0; transition: opacity 0.6s ease 0.15s; }
+.rival-sub.show { opacity: 1; }
 #radar { width: 340px; height: 340px; max-width: 70vw; max-height: 70vw; }
 .role { font-size: clamp(40px, 5vw, 64px); font-weight: 900; color: var(--sky); line-height: 1.05; margin: 4px 0 6px; }
 .role-blurb { margin: 0 0 16px; color: var(--text); opacity: 0.85; font-size: 18px; line-height: 1.4; }

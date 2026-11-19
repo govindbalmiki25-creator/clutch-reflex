@@ -23,6 +23,7 @@ Built for the **Cloud9 x JetBrains: Sky's The Limit Hackathon 2026**, Category 3
 - Mouse only. Anyone gets it without a tutorial.
 - Each drill scores 0–100, and your **final score** is the sum × 15 (6,000 max).
 - Your strongest skill gives your **archetype**: Spearhead, Hunter, Sentry, Marksman, or Flex if you're balanced.
+- A **rival callout** under your score gives you the next target, like "270 points behind ZED (#2 today)" or "NEW #1 TODAY by 265 points!".
 - You enter your initials with on-screen arrows (or the keyboard), lock in, and see your rank for the day.
 
 ## Booth-ready by design
@@ -76,7 +77,7 @@ js/game.js          game flow, HUD, results, initials, operator panel
 > Fill in exactly what you did. Judges score how thoroughly JetBrains tools were used.
 
 - **WebStorm**: the main IDE for the project, with its built-in browser preview for testing and the Git tool window for commits. <!-- add more as you use them: debugger, inspections -->
-- **Junie in JetBrains Air**: built the attract-mode demo over 3 rounds of prompting, reviewing the agent's diffs in Air between rounds. See [BUILD_LOG.md](BUILD_LOG.md).
+- **Junie in JetBrains Air**: built the attract-mode demo over 3 rounds of prompting, reviewing the agent's diffs in Air between rounds, and then the results-screen rival callout. See [BUILD_LOG.md](BUILD_LOG.md).
 - The `.idea/` (and `.junie/` / `.air/`, if present) folders are committed as evidence.
 
 ## Methodology
