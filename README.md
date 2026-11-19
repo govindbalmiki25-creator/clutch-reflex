@@ -35,6 +35,7 @@ Built for the **Cloud9 x JetBrains: Sky's The Limit Hackathon 2026**, Category 3
   - After saving, it goes back to the start screen after 7 seconds.
   - Stray clicks are ignored for a moment after a reset.
 - **Abort safety.** Esc, or switching away from the tab, mid-run returns cleanly to the start screen.
+- **Attract-mode demo.** After 20 seconds idle, a bot plays all 4 drills to draw people in. Any mouse move, click or key press hands control back instantly. The demo never saves scores and stays silent.
 - **Family-friendly names.** A small blocklist stops offensive three-letter initials.
 - **Hidden operator panel.** Press `Ctrl+Shift+O`, or click the top-left corner 5 times. From it you can:
   - set the event name and toggle sound
@@ -74,8 +75,8 @@ js/game.js          game flow, HUD, results, initials, operator panel
 
 > Fill in exactly what you did. Judges score how thoroughly JetBrains tools were used.
 
-- **WebStorm**: <!-- e.g. main IDE for JS/CSS, debugger for the game loop, built-in HTTP server for testing -->
-- **Junie / JetBrains Air**: <!-- e.g. used Junie to generate/refactor X, reviewed agent diffs in Air -->
+- **WebStorm**: the main IDE for the project, with its built-in browser preview for testing and the Git tool window for commits. <!-- add more as you use them: debugger, inspections -->
+- **Junie in JetBrains Air**: built the attract-mode demo over 3 rounds of prompting, reviewing the agent's diffs in Air between rounds. See [BUILD_LOG.md](BUILD_LOG.md).
 - The `.idea/` (and `.junie/` / `.air/`, if present) folders are committed as evidence.
 
 ## Methodology

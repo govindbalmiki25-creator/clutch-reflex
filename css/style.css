@@ -173,6 +173,58 @@ body.board { overflow: hidden; }
 .lb-last { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line); }
 .lb-last .who { font-family: var(--mono); font-size: 28px; }
 
+/* ---------- Demo overlay ---------- */
+
+/* Hide the attract screen while the demo runs */
+body.demo-running #attract {
+  display: none !important;
+}
+
+#demoOverlay {
+  position: fixed; inset: 0; z-index: 15;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: space-between; /* label at the top, call-to-action at the bottom */
+  /* Transparent center with light gradient fades at top and bottom */
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 18, 31, 0.45) 0%,
+    rgba(7, 18, 31, 0.10) 18%,
+    transparent 35%,
+    transparent 65%,
+    rgba(7, 18, 31, 0.10) 82%,
+    rgba(7, 18, 31, 0.45) 100%
+  );
+  cursor: pointer;
+}
+
+/* Drill name label at top center */
+.demo-label {
+  margin-top: 20px;
+  background: var(--gold); color: var(--bg);
+  font-weight: 900; font-size: 13px; letter-spacing: 0.15em;
+  padding: 6px 16px; border-radius: 8px;
+}
+
+/* Game name + "Click to play" call-to-action at bottom center */
+.demo-bottom {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  margin-bottom: 32px; text-align: center;
+}
+.demo-brand {
+  font-size: clamp(28px, 4vw, 48px); font-weight: 900; letter-spacing: -0.01em; line-height: 1;
+  text-shadow: 0 0 30px rgba(63, 182, 255, 0.4);
+}
+.demo-brand span { color: var(--sky); margin-left: 0.25em; }
+.demo-sub { color: var(--mute); font-size: 15px; }
+.demo-click {
+  color: var(--text); font-size: clamp(18px, 2.5vw, 26px); font-weight: 900;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  animation: pulse 1.6s infinite;
+  padding: 14px 36px; border-radius: 14px;
+  background: rgba(63, 182, 255, 0.15);
+  border: 2px solid rgba(63, 182, 255, 0.4);
+}
+
 @media (max-width: 860px) {
   .res-grid { grid-template-columns: 1fr; gap: 16px; text-align: center; justify-items: center; }
   .stats li { text-align: left; }
