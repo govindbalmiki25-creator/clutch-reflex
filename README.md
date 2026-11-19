@@ -5,6 +5,9 @@ Four quick drills test the skills competitive players actually use (flicks, trac
 
 Built for the **Cloud9 x JetBrains: Sky's The Limit Hackathon 2026**, Category 3: Event Mini Game.
 
+**▶ Play it now:** <https://govindbalmiki25-creator.github.io/clutch-reflex/>
+**Leaderboard screen:** <https://govindbalmiki25-creator.github.io/clutch-reflex/leaderboard.html> (open it in a second window)
+
 ---
 
 ## How it plays
